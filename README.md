@@ -28,3 +28,5 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe  /reference:Renci.SshNet
 ```
 ![image](https://github.com/HernanRodriguez1/SharpBruteForceSSH/assets/66162160/268719c4-4914-4197-8ff3-118688a9835b)
 
+Added the option to validate the status of the service if it is available or not. Example of SSH service turned off or IP blocking in the middle of a brute force process
+![image](https://github.com/HernanRodriguez1/SharpBruteForceSSH/assets/66162160/c8b76ebd-847b-49f9-8bb2-cfb112b85532)
