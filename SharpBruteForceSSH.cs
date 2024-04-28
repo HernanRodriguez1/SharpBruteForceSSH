@@ -1,10 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using Renci.SshNet;
+
+class AuthenticationResult
+{
+    public bool Success { get; set; }
+    public bool ServiceAvailable { get; set; }
+}
 
 class Program
 {
@@ -84,10 +88,12 @@ class Program
 
                         Console.WriteLine("Trying username: " + username.PadRight(15) + " Password: " + password.PadRight(15) + " ... ");
 
-                        if (sshConnection(target, username, password))
+                        var authenticationResult = sshConnection(target, username, password);
+
+                        if (authenticationResult.Success)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Authentication successful for username: " + username);
+                            Console.WriteLine("Authentication successful for username: " + username + " - Service is available.");
                             Console.ResetColor();
                             foundValidCredentials = true;
 
@@ -99,7 +105,7 @@ class Program
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Failed to authenticate for username: " + username);
+                            Console.WriteLine("Failed to authenticate for username: " + username + " - Service is " + (authenticationResult.ServiceAvailable ? "available." : "not available."));
                             Console.ResetColor();
                         }
 
@@ -118,8 +124,10 @@ class Program
         }
     }
 
-    static bool sshConnection(string target, string username, string password)
+    static AuthenticationResult sshConnection(string target, string username, string password)
     {
+        AuthenticationResult result = new AuthenticationResult();
+
         try
         {
             using (var client = new SshClient(target, username, password))
@@ -128,15 +136,17 @@ class Program
                 if (client.IsConnected)
                 {
                     client.Disconnect();
-                    return true;
+                    result.Success = true;
+                    result.ServiceAvailable = true;
                 }
             }
         }
         catch (Exception)
         {
-            // Failed to authenticate
+            result.Success = false;
+            result.ServiceAvailable = true; // Service is available but authentication failed
         }
-        return false;
+        return result;
     }
 
     static string GetSshBanner(string target)
