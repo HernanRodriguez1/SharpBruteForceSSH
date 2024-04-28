@@ -130,6 +130,18 @@ class Program
 
         try
         {
+            using (TcpClient tcpClient = new TcpClient())
+            {
+                IAsyncResult asyncResult = tcpClient.BeginConnect(target, 22, null, null);
+                bool success = asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5));
+                if (!success)
+                {
+                    // Failed to connect to the SSH service
+                    result.ServiceAvailable = false;
+                    return result;
+                }
+            }
+
             using (var client = new SshClient(target, username, password))
             {
                 client.Connect();
