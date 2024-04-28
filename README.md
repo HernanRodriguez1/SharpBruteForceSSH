@@ -21,10 +21,10 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe  /reference:Renci.SshNet
 ```sh
 .\SharpBruteForceSSH.exe 192.168.200.130 .\username.txt .\password.txt -delay 2 -threads 5  
 ```
-![image](https://github.com/HernanRodriguez1/SharpBruteForceSSH/assets/66162160/501f5f30-9867-45d9-b15a-54e36cb5c854)
-
+![image](https://github.com/HernanRodriguez1/SharpBruteForceSSH/assets/66162160/a0e09536-4db4-4a7a-952b-6dbf4be9022c)
 
 ```sh
 .\SharpBruteForceSSH.exe 192.168.200.130 .\username.txt .\password.txt -delay 2 -threads 5  --continue
 ```
-![image](https://github.com/HernanRodriguez1/SharpBruteForceSSH/assets/66162160/5124777d-b02a-49a0-8d5a-0540fb184127)
+![image](https://github.com/HernanRodriguez1/SharpBruteForceSSH/assets/66162160/268719c4-4914-4197-8ff3-118688a9835b)
+
